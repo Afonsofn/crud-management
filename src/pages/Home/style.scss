@@ -1,0 +1,21 @@
+.table-container {
+  // margin: 5rem;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  // border: 1px blue solid;
+
+  .new-employee {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.button-td {
+  width: 200px;
+  // background: aqua;
+  .button-wrapper {
+    display: flex;
+    gap: 1rem;
+    
+  }
+}
