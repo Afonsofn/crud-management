@@ -1,0 +1,13 @@
+#modal-delete {
+  background: rgb(245, 245, 245);
+  width: 40vw;
+  border-top: red 2px solid;
+  border-radius: 5px;
+
+  .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+}
