@@ -1,13 +1,23 @@
 #modal-delete {
   background: rgb(245, 245, 245);
   width: 40vw;
-  border-top: red 2px solid;
+  border-top: rgba(167, 24, 24, 0.801) 3px solid;
   border-radius: 5px;
-
+  
   .modal-footer {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 2rem;
+
+    a {
+      color: white;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  #modal-delete {
+    width: 70vw;
   }
 }

@@ -6,7 +6,7 @@ import './style.scss';
 function PeopleEdit() {
 
   useEffect(() => {
-    M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'));
+    M.Dropdown.init(document.querySelectorAll('.dropdown-trigger')); // Starting Dropdown
   }, [])
 
   return ( 

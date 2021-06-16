@@ -7,7 +7,7 @@ import './style.scss';
 function Header() {
 
   useEffect(() => {
-    M.Sidenav.init(document.querySelectorAll('.sidenav'))
+    M.Sidenav.init(document.querySelectorAll('.sidenav')) // Starting SideBar
   }, [])
 
   return (
@@ -15,7 +15,7 @@ function Header() {
       <a href="#!" data-target="slide-out" className="sidenav-trigger">
         <span className="material-icons">menu</span>
       </a>
-      <img src="new-nutcache-logo.png" alt="nutcache-logo" />
+      <img src="new-nutcache-logo.png" alt="nutcache-logo" className="logo" />
       <SideBar />
     </div>
   );
