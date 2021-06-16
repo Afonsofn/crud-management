@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   
+  font-family: Lexend, sans-serif;
   background: linear-gradient(rgba(43, 170, 202, 0.616), transparent);
   color: white;
   
@@ -12,14 +13,12 @@
     align-items: center;
     gap: 2rem;
     
+    
     padding-bottom: 2rem;
     text-align: center;
   }
 
   .dev-copy {
-    align-self: center;
-    justify-self: flex-end;
-    
     padding-bottom: 1rem;
   }
 }

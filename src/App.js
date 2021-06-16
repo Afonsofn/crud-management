@@ -11,7 +11,7 @@ import './styles/global.css';
 function App() {
   return (
     <div className="App">
-      <ManagementContextProvider>
+      <ManagementContextProvider> {/* Providing states and functions to app */}
         <Header />
         <BrowserRouter>
           <Switch>

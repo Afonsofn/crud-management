@@ -5,7 +5,7 @@ import './style.scss';
 
 function PeopleRegistration() {
 
-  useEffect(() => {
+  useEffect(() => { // Starting Dropdown 'n' Datepicker
     M.Dropdown.init(document.querySelectorAll('.dropdown-trigger'));
     M.Datepicker.init(document.querySelectorAll('.datepicker'));
   }, [])

@@ -1,3 +1,4 @@
+import { Link, Router } from 'react-router-dom';
 import './style.scss';
 
 function SideBar() {
@@ -11,12 +12,12 @@ function SideBar() {
           </div>
 
           <div className="divider"></div>
-
-          <a href="#!" className="white-text"><i className="material-icons white-text">cloud</i>About Afonso Dev</a>
+          
+          <a href="/about" className="white-text"><i className="material-icons white-text">cloud</i>About Afonso Dev</a>
         </li>
         
         <li>
-          <div className="dev-copy">Afonso &copy;</div>
+          <div className="dev-copy center">Afonso &copy;</div>
         </li>
       </ul>
     </>

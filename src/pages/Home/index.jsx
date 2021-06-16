@@ -15,13 +15,10 @@ function Home() {
 
   useEffect(() => {
     getEmployees()
-    console.log(employeeList);
     M.Modal.init(document.querySelectorAll('.modal-people-registration'))
     M.Modal.init(document.querySelectorAll('.modal-people-edit'))
     M.Modal.init(document.querySelectorAll('.modal-delete-confirmation'))
   }, [])
-
-  const resp = employeeList
 
   return (
     <div className="table-container">
@@ -38,7 +35,7 @@ function Home() {
         </thead>
 
         <tbody>
-          { resp.length !== 0 && resp.map((employee, index) => {
+          { employeeList.length !== 0 && employeeList.map(employee => {  // If employeeList has more than zero items, show this..
             return (
               <tr>
                 <td>{employee.name}</td>
@@ -55,7 +52,7 @@ function Home() {
                     <a
                       className="waves-effect waves-red btn-small modal-trigger red lighten-2"
                       href="#modal-delete"
-                      onClick={() => setDeleteEmployeeId(index)}
+                      onClick={() => setDeleteEmployeeId(employee._id)}
                     >
                       <i className="material-icons">clear</i>
                     </a>
