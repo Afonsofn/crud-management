@@ -31,12 +31,26 @@ export function ManagementContextProvider({ children }) {
       })
     }
 
+    function createEmployees(payload) {
+      api.post('/nutemployee/', payload)
+      .then( (_response) => {
+        M.toast({html: 'Employee created.'})
+      })
+      .catch(_error => {
+        M.toast({html: 'Ops... something went wrong, try later.'})
+      })
+      .finally(() => {
+        getEmployees() // Refresh employess
+      })
+    }
+
   return (
     <ManagementContext.Provider // Providing states and functions for generic component
       value={{
         getEmployees,
         setDeleteEmployeeId,
         deleteEmployees,
+        createEmployees,
         employeeList
       }}
     >
