@@ -12,10 +12,10 @@
 
 ```bash
 # Clone this repo to your local machine using:
-$ git clone git@github.com:Afonsofn/podcastr.git
+$ git clone git@github.com:Afonsofn/crud-management.git
 
 # Go to podcastr folder;
-$ cd podcastr
+$ cd crud-management
 
 # Install project dependencies;
 $ npm install
