@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="nutcache logo" title="crud-management" src=".public/new-nutcache-logo.png" width="300px" />
+  <img alt="nutcache logo" title="crud-management" src="./public/new-nutcache-logo.png" width="300px" />
 </h1>
 
 <h4 align="center">
