@@ -22,3 +22,13 @@
     padding-right: 2rem;
   }
 }
+
+@media (max-width: 640px) {
+  #modal-edit {
+    .modal-footer {
+      justify-content: center;
+      gap: 1rem;
+      padding-right: 0rem;
+    }
+  }
+}

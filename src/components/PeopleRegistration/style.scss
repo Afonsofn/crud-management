@@ -48,6 +48,8 @@
     option {
       background: rgb(6, 163, 163);
       color: white;
+
+      
     }
     
   }
@@ -65,4 +67,14 @@
     margin-top: 0.7rem;
   }
   
+}
+
+@media (max-width: 640px) {
+  #modal-registration {
+    .modal-footer {
+      justify-content: center;
+      gap: 1rem;
+      padding-right: 0rem;
+    }
+  }
 }

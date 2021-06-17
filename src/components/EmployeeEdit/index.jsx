@@ -1,13 +1,53 @@
-import { useEffect } from 'react';
-import M from "materialize-css";
+import { useState } from 'react';
+
+import { useManagement } from '../../context/managementContext'
 
 import './style.scss';
 
 function PeopleEdit() {
 
-  useEffect(() => {
-    M.Dropdown.init(document.querySelectorAll('.dropdown-trigger')); // Starting Dropdown
-  }, [])
+  const { editEmployee, validaEmail } = useManagement()
+
+  const [values, setValues] = useState({
+    name: "",
+    team: "Mobile",
+    email: "",
+    start_date: "",
+  })
+
+  const handleinputChange = ({ target }) => {
+    setValues({...values, [target.name]: target.value})
+  }
+
+  const submitForm = () => {
+    if (validaDados(values) === true) {
+      document.getElementById("msgerroedit").innerHTML="";
+      editEmployee(values)
+      document.getElementById("cancelButtonEdit").click()
+      resetInputs()
+    } else {
+      document.getElementById("msgerroedit").innerHTML="<font color='red'>Wrong or incomplete data, please try again :)</font>";
+    }
+  }
+
+  const validaDados = () => {
+    return (
+      values.name && values.name.length >= 3 && 
+      values.team && values.team.length >= 2 &&
+      values.email && values.email.length >= 5 &&
+      values.start_date && values.start_date.length === 7 &&
+      validaEmail(values.email) === true ? true : false
+    )
+  }
+
+  const resetInputs = () => {
+    setValues({
+      name: "",
+      team: "Mobile",
+      email: "",
+      start_date: "",
+    })
+  }
 
   return ( 
     <div id="modal-edit" className="modal modal-people-edit">
@@ -16,36 +56,60 @@ function PeopleEdit() {
       </div>
 
       <div className="modal-content">
-        <div className="input-field">
-          <input  type="text" id="name-edit" required />
-          <label htmlFor="name-edit">Name</label>
+      <div className="input-field">
+          <input
+            onChange={handleinputChange}
+            value={values.name}
+            type="text"
+            name="name"
+            required
+          />
+          <label htmlFor="name">Name</label>
         </div>
 
         <div className="input-field">
-          <input  type="text" id="email-edit" required />
-          <label htmlFor="email-edit">Email</label>
+          <input
+            onChange={handleinputChange}
+            value={values.email}
+            type="text"
+            name="email"
+            required
+          />
+          <label htmlFor="email">Email</label>
         </div>
 
-        <div className="input-field">
-          <input  type="number" id="month-edit" required />
-          <label htmlFor="month-edit">Start date</label>
+        <div className="input-field select">
+          <select
+            onChange={handleinputChange}
+            value={values.team}
+            className="browser-default"
+            name="team"
+          >
+            <option value="Mobile">Mobile</option>
+            <option value="FrontEnd">FrontEnd</option>
+            <option value="BackEnd">BackEnd</option>
+            <option value="N/A">N/A</option>
+          </select>
+          <label htmlFor="team">Team</label>
         </div>
-        
-        <div className="input-field">
-          <input className='dropdown-trigger' id="team-edit" href='#' data-target='dropdown-team' />
-          <label htmlFor="team-edit">Team</label>
+
+        <div className="input-field select">
+          <input
+            onChange={handleinputChange}
+            value={values.start_date}
+            type="month"
+            name="start_date"
+            required 
+          />
+          <label htmlFor="start_date">Start date</label>
         </div>
-        <ul id='dropdown-team' className='dropdown-content'>
-          <li><a href="#!">Mobile</a></li>
-          <li><a href="#!">FrontEnd</a></li>
-          <li><a href="#!">BackEnd</a></li>
-          <li><a href="#!">N/A</a></li>
-        </ul>
+
+        <div id="msgerroedit" className="center"></div>
       </div>
 
       <div className="modal-footer">
-        <a href="#!" className="modal-close waves-effect red lighten-2 btn">Cancel</a>
-        <a href="#!" className="modal-close waves-effect waves-teal btn">Confirm</a>
+      <a href="#!" className="modal-close waves-effect red lighten-2 btn" id="cancelButtonEdit">Cancel</a>
+        <a href="#!" className="waves-effect waves-teal btn" onClick={submitForm}>Register</a>
       </div>
     </div>
   );
