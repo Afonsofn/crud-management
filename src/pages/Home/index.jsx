@@ -15,6 +15,7 @@ function Home() {
 
   useEffect(() => {
     getEmployees()
+    M.updateTextFields();
     M.Modal.init(document.querySelectorAll('.modal-people-registration'))
     M.Modal.init(document.querySelectorAll('.modal-people-edit'))
     M.Modal.init(document.querySelectorAll('.modal-delete-confirmation'))
@@ -24,7 +25,7 @@ function Home() {
     <div className="table-container">
       <a className="waves-effect waves-light btn new-employee modal-trigger" href="#modal-registration"><i className="material-icons left">add</i>new employee</a>
       
-      <table className="striped responsive-table">
+      <table className="striped responsive-table hide-on-med-and-down"> {/* Shows on larges screens */}
         <thead>
           <tr>
             <th>Name</th>
@@ -35,13 +36,13 @@ function Home() {
         </thead>
 
         <tbody>
-          { employeeList.length !== 0 && employeeList.map(employee => {  // If employeeList has more than zero items, show this..
+          { employeeList.length !== 0 && employeeList.map((employee, index) => {  // If employeeList has more than zero items, show this..
             return (
-              <tr>
-                <td>{employee.name}</td>
-                <td>{employee.email}</td>
-                <td>{employee.start_date}</td>
-                <td>{employee.team}</td>
+              <tr key={index}>
+                <td>{employee.name.length !== 0 ? employee.name : ''}</td>
+                <td>{employee.email.length !== 0 ? employee.email : ''}</td>
+                <td>{employee.start_date.length !== 0 ? employee.start_date : ''}</td>
+                <td>{employee.team.length !== 0 ? employee.team : ''}</td>
 
                 <td className="button-td">
                   <div className="button-wrapper">
@@ -63,6 +64,53 @@ function Home() {
           }) }
         </tbody>
       </table>
+      <div className="cards-wrapper hide-on-large-only"> {/* Shows on small screens */}
+        { employeeList.length !== 0 && employeeList.map((employee, index) => {  // If employeeList has more than zero items, show this..
+          return (
+          <div className="card" key={employee._id}>
+            <div className="card-content">
+              <div className="info-wrapper">
+                <div className="input-field">
+                  <input disabled value={employee.name} type="text" id={`${employee._id}-name`} required />
+                  <label className="active" htmlFor={`${employee._id}-name`}>Name</label>
+                </div>
+
+                <div className="input-field">
+                  <input disabled value={employee.email} type="text" id={`${employee._id}-email`} required />
+                  <label className="active" htmlFor={`${employee._id}-email`}>Email</label>
+                </div>
+
+                <div className="input-field">
+                  <input disabled value={employee.start_date} type="text" id={`${employee._id}-month`} required />
+                  <label className="active" htmlFor={`${employee._id}-month`}>Start Date</label>
+                </div>
+
+                <div className="input-field">
+                  <input disabled value={employee.team} type="text" id={`${employee._id}-team`} required />
+                  <label className="active" htmlFor={`${employee._id}-team`}>Team</label>
+                </div>
+              </div>
+              
+              <div className="divider"></div>
+              
+              <div className="button-wrapper">
+                <a className="waves-effect waves-teal btn-small modal-trigger" href="#modal-edit">
+                  <i className="material-icons ">mode_edit</i>
+                </a>
+
+                <a
+                  className="waves-effect waves-red btn-small modal-trigger red lighten-2"
+                  href="#modal-delete"
+                  onClick={() => setDeleteEmployeeId(employee._id)}
+                  >
+                  <i className="material-icons">clear</i>
+                </a>
+              </div>
+            </div>
+          </div>
+        )
+        }) }
+      </div>
       {/* MODALS */}
       <PeopleRegistration />
       <DeleteConfirmation />

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const TOKEN = "d8b37dc774c74523b7d332be7e1bc1ba"
+const TOKEN = "826dc7db2385435aa031c97b35792220"
 
 export const api = axios.create({ // Setting base URL
   baseURL: `https://crudcrud.com/api/${TOKEN}`

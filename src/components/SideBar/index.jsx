@@ -1,4 +1,3 @@
-import { Link, Router } from 'react-router-dom';
 import './style.scss';
 
 function SideBar() {
