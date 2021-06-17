@@ -7,6 +7,7 @@ export const ManagementContext = createContext({})
 export function ManagementContextProvider({ children }) {
   const [employeeList, setEmployeeList] = useState([])
   const [deleteEmployeeId, setDeleteEmployeeId] = useState(0)
+  const [editEmployeeId, setEditEmployeeId] = useState(0)
 
     function getEmployees() {
       api.get('/nutemployee/')
@@ -44,13 +45,55 @@ export function ManagementContextProvider({ children }) {
       })
     }
 
+    function editEmployee(payload) {
+      api.put(`/nutemployee/${editEmployeeId}`, payload)
+      .then( (_response) => {
+        M.toast({html: 'Employee edited.'})
+      })
+      .catch(_error => {
+        M.toast({html: 'Ops... something went wrong, try later.'})
+      })
+      .finally(() => {
+        getEmployees() // Refresh employess
+      })
+    }
+
+    const capitalizeFirstLetter = (string) => {
+      return string.toLowerCase().replace(/\b\w/g, l => l.toUpperCase())
+    }
+
+    const validaEmail = (email) => {
+      const usuario = email.substring(0, email.indexOf("@"));
+      const dominio = email.substring(email.indexOf("@")+ 1, email.length);
+  
+      if (
+        (usuario.length >=1) &&
+        (dominio.length >=3) &&
+        (usuario.search("@")===-1) &&
+        (dominio.search("@")===-1) &&
+        (usuario.search(" ")===-1) &&
+        (dominio.search(" ")===-1) &&
+        (dominio.search(".")!==-1) &&
+        (dominio.indexOf(".") >=1)&&
+        (dominio.lastIndexOf(".") < dominio.length - 1)) {
+        return true
+      }
+      else{
+        return false
+      }
+    }
+
   return (
     <ManagementContext.Provider // Providing states and functions for generic component
       value={{
         getEmployees,
         setDeleteEmployeeId,
+        setEditEmployeeId,
         deleteEmployees,
         createEmployees,
+        editEmployee,
+        capitalizeFirstLetter,
+        validaEmail,
         employeeList
       }}
     >

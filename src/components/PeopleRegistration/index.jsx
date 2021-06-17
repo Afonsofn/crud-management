@@ -6,27 +6,28 @@ import './style.scss';
 
 function PeopleRegistration() {
 
-  const { createEmployees } = useManagement()
+  const { createEmployees, validaEmail } = useManagement()
 
   const [values, setValues] = useState({
     name: "",
     date: "",
-    gender: "",
-    team: "",
+    gender: "Male",
+    team: "Mobile",
     email: "",
     cpf: "",
-    month: "",
+    start_date: "",
   })
 
   const handleinputChange = ({ target }) => {
-    console.log(target.value.length);
     setValues({...values, [target.id]: target.value})
   }  
 
-  const sumbmitForm = () => {
+  const submitForm = () => {
     if (validaDados(values) === true) {
       document.getElementById("msgerro").innerHTML="";
       createEmployees(values)
+      document.getElementById("cancelButton").click()
+      resetInputs()
     } else {
       document.getElementById("msgerro").innerHTML="<font color='red'>Wrong or incomplete data, please try again :)</font>";
     }
@@ -40,30 +41,21 @@ function PeopleRegistration() {
       values.team && values.team.length >= 2 &&
       values.email && values.email.length >= 5 &&
       values.cpf && values.cpf.length === 11 &&
-      values.month && values.month.length === 7 &&
+      values.start_date && values.start_date.length === 7 &&
       validaEmail(values.email) === true ? true : false
     )
   }
 
-  const validaEmail = (email) => {
-    const usuario = email.substring(0, email.indexOf("@"));
-    const dominio = email.substring(email.indexOf("@")+ 1, email.length);
-
-    if (
-      (usuario.length >=1) &&
-      (dominio.length >=3) &&
-      (usuario.search("@")===-1) &&
-      (dominio.search("@")===-1) &&
-      (usuario.search(" ")===-1) &&
-      (dominio.search(" ")===-1) &&
-      (dominio.search(".")!==-1) &&
-      (dominio.indexOf(".") >=1)&&
-      (dominio.lastIndexOf(".") < dominio.length - 1)) {
-      return true
-    }
-    else{
-      return false
-    }
+  const resetInputs = () => {
+    setValues({
+      name: "",
+      date: "",
+      gender: "Male",
+      team: "Mobile",
+      email: "",
+      cpf: "",
+      start_date: "",
+    })
   }
 
   return ( 
@@ -104,9 +96,9 @@ function PeopleRegistration() {
             id="gender"
             required
           >
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
           </select>
           <label htmlFor="gender">Gender</label>
         </div>
@@ -119,10 +111,10 @@ function PeopleRegistration() {
             name="team"
             id="team"
           >
-            <option value="male">Mobile</option>
-            <option value="female">FrontEnd</option>
-            <option value="other">BackEnd</option>
-            <option value="other">N/A</option>
+            <option value="Mobile">Mobile</option>
+            <option value="FrontEnd">FrontEnd</option>
+            <option value="BackEnd">BackEnd</option>
+            <option value="N/A">N/A</option>
           </select>
           <label htmlFor="team">Team</label>
         </div>
@@ -153,20 +145,21 @@ function PeopleRegistration() {
         <div className="input-field select">
           <input
             onChange={handleinputChange}
-            value={values.month}
+            value={values.start_date}
             type="month"
-            id="month"
+            id="start_date"
             required 
           />
-          <label htmlFor="month">Start date</label>
+          <label htmlFor="start_date">Start date</label>
         </div>
+
         <div id="msgerro" className="center"></div>
       </div>
       
       
       <div className="modal-footer">
-        <a href="#!" className="modal-close waves-effect red lighten-2  btn">Cancel</a>
-        <a href="#!" className="waves-effect waves-teal btn" onClick={sumbmitForm}>Register</a>
+        <a href="#!" className="modal-close waves-effect red lighten-2 btn" id="cancelButton">Cancel</a>
+        <a href="#!" className="waves-effect waves-teal btn" onClick={submitForm}>Register</a>
       </div>
     </div>
   );

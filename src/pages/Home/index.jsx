@@ -11,7 +11,7 @@ import './style.scss';
 
 function Home() {
 
-  const { getEmployees, employeeList, setDeleteEmployeeId } = useManagement()
+  const { getEmployees, employeeList, setDeleteEmployeeId, setEditEmployeeId, capitalizeFirstLetter } = useManagement()
 
   useEffect(() => {
     getEmployees()
@@ -39,16 +39,20 @@ function Home() {
           { employeeList.length !== 0 && employeeList.map((employee, index) => {  // If employeeList has more than zero items, show this..
             return (
               <tr key={index}>
-                <td>{employee.name.length !== 0 ? employee.name : ''}</td>
-                <td>{employee.email.length !== 0 ? employee.email : ''}</td>
-                <td>{employee.start_date.length !== 0 ? employee.start_date : ''}</td>
-                <td>{employee.team.length !== 0 ? employee.team : ''}</td>
+                <td>{capitalizeFirstLetter(employee.name)}</td>
+                <td>{employee.email}</td>
+                <td>{employee.start_date}</td>
+                <td>{employee.team}</td>
 
                 <td className="button-td">
                   <div className="button-wrapper">
-                    <a className="waves-effect waves-teal btn-small modal-trigger" href="#modal-edit">
-                      <i className="material-icons ">mode_edit</i>
-                    </a>
+                  <a
+                    className="waves-effect waves-teal btn-small modal-trigger"
+                    href="#modal-edit"
+                    onClick={() => setEditEmployeeId(employee._id)}
+                  >
+                    <i className="material-icons ">mode_edit</i>
+                  </a>
 
                     <a
                       className="waves-effect waves-red btn-small modal-trigger red lighten-2"
@@ -71,7 +75,7 @@ function Home() {
             <div className="card-content">
               <div className="info-wrapper">
                 <div className="input-field">
-                  <input disabled value={employee.name} type="text" id={`${employee._id}-name`} required />
+                  <input disabled value={capitalizeFirstLetter(employee.name)} type="text" id={`${employee._id}-name`} required />
                   <label className="active" htmlFor={`${employee._id}-name`}>Name</label>
                 </div>
 
@@ -94,7 +98,11 @@ function Home() {
               <div className="divider"></div>
               
               <div className="button-wrapper">
-                <a className="waves-effect waves-teal btn-small modal-trigger" href="#modal-edit">
+                <a
+                  className="waves-effect waves-teal btn-small modal-trigger"
+                  href="#modal-edit"
+                  onClick={() => setEditEmployeeId(employee._id)}
+                >
                   <i className="material-icons ">mode_edit</i>
                 </a>
 
